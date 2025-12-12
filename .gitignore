@@ -1,0 +1,4 @@
+Todo_venv
+db.sqlite3
+*.pyc
+*.txt
