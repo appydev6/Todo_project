@@ -1,22 +1,29 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
+from todo_App_1.models import todo_App_1
 # Create your views here.
 
 def hello(request):
-    html = """
+    todo = todo_App_1.objects.last()
+    html = f"""
     <h1>Hello World</h1>
-    <h2>This is html Response</h2>
+    <p>This is html Response</p>
+    <p>Todo Title : {todo.title} </p>
     """
     return HttpResponse(html)
 
 def index(request):
+    todo = todo_App_1.objects.first()
+
     a = {
-        'title': "Hey there",
+        'title': todo.title,
         'description': "This is json response"
     }
     return JsonResponse(a)
 
 def bye(request):
+    todos = todo_App_1.objects.all()
+    show=False
     page_name = "temp.html"
-    return render(request, page_name)
-    
+    my_dict = {'todos' : todos, 'show': show}
+    return render(request, page_name, context= my_dict)

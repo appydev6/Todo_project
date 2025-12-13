@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'todo_App_1'
+    'todo_App_1.apps.TodoApp1Config'
     
 ]
 
