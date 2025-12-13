@@ -23,7 +23,7 @@ def index(request):
 
 def bye(request):
     todos = todo_App_1.objects.all()
-    show=False
+    show=True
     page_name = "temp.html"
     my_dict = {'todos' : todos, 'show': show}
     return render(request, page_name, context= my_dict)
