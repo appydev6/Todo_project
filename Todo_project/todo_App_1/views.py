@@ -31,14 +31,15 @@ def delete_view(request, todo_id):
         except todo_object.DoesNotExist:
             return HttpResponse("Error Todo Not Found")
 
-def mark_view(request, todo_id):
-    if request.method == "POST":
+def mark_view(request):
+    if request.method == "GET":
         return HttpResponse("Invalid method")
     else:
         try:
-            todo_object= todo_App_1.objects.get(id=todo_id)
+            todo_id = request.POST['todo_id']
+            todo_object = todo_App_1.objects.get(id=todo_id)
             todo_object.completed = True
             todo_object.save()
             return redirect('todo_index')
-        except todo_object.DoesNotExist:
+        except todo_App_1.DoesNotExist:
             return HttpResponse("Error Todo Not Found")

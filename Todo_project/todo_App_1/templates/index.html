@@ -12,14 +12,14 @@
   </head>
   <body>
     <h1>Todo App</h1>
-    <form method="POST" action="{% url "add_todo" %}" autocomplete="off">
+    <form method="POST" action="{% url 'add_todo' %}" autocomplete="off">
       {% csrf_token %}
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Add Your Todos</label>
-    <input type="text" class="form-control" id="todoInput" name="todoInput" required>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Add Your Todos</label>
+        <input type="text" class="form-control" id="todoInput" name="todoInput" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
     <hr>
     <h1>Todo List</h1>
       <ul class="list-group">
@@ -31,8 +31,10 @@
             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
           </form>
           
-          {% if todo.completed == False %}        
-          <form method="GET" action="{% url 'mark_todo' todo.id %}">
+          {% if todo.completed == False %}       
+          <form method="POST" action="{% url 'mark_todo' %}">
+            {% csrf_token %}
+            <input type="hidden" name="todo_id" value="{{ todo.id }}" />
             <button type="submit" class="btn btn-primary btn-sm">Mark as Completed</button>
           </form>
           {% endif %}
