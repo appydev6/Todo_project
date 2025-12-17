@@ -1,9 +1,7 @@
 from django.contrib import admin
 from django.urls import include, path
-from . views import hello, index, bye   
+from . views import index  
 
 urlpatterns = [
-    path('index/', index),
-    path('bye/', bye),
-    path('hello/', hello),
+    path('index/', index, name= 'todo_index'),
 ]
