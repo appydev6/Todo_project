@@ -12,6 +12,18 @@
   </head>
   <body>
     <h1>Todo App</h1>
+    <a href="/todos_app_1/?completed=1" class="btn btn-success">Show completed todos</a>
+    <a href="/todos_app_1/?completed=0" class="btn btn-warning">Show incompleted todos</a>
+    <a href="/todos_app_1/?order=0" class="btn btn-info">Order by date oldest</a>
+    <a href="/todos_app_1/?order=1" class="btn btn-dark">Order by date latest</a>
+
+    <!-- Form for Search Existing Todos -->
+    <form method="GET" action="{% url 'todo_index' %}">
+      <input type="text" class="form-control" id="todoSearch" name="todoSearch" required placeholder="Search Todo">
+      <button type="submit" class="btn btn-secondary">Search</button>
+    </form>
+
+    <!-- Form for Adding New Todos -->
     <form method="POST" action="{% url 'add_todo' %}" autocomplete="off">
       {% csrf_token %}
       <div class="mb-3">
@@ -21,11 +33,15 @@
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <hr>
+
+    <!-- Show's list of existing Todos either Completed and Incompleted both -->
     <h1>Todo List</h1>
       <ul class="list-group">
         {% for todo in todos %}
         <li class="list-group-item {% if todo.completed %} list-group-item-success {% else %} list-group-item-danger {% endif %}"
         style="display: flex; justify-content: space-between;">{{todo.title}}
+        <br>
+        <span class="badge text-bg-light">{{todo.created_at}}</span>
         <div>
           <form method="GET" action="{% url 'delete_todo' todo.id %}">
             <button type="submit" class="btn btn-danger btn-sm">Delete</button>

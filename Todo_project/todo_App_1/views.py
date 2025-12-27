@@ -2,9 +2,30 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from todo_App_1.models import todo_App_1
 # Create your views here.
+COMPLETED_TO_BOOL = {
+    "0" : False,
+    "1" : True
+}
+
+ORDER_TO_STRING = {
+    "0" : "created_at",
+    "1" : "-created_at"
+}
 
 def index(request):
-    all_todos = todo_App_1.objects.all().order_by('id')
+    search = request.GET.get("todoSearch")  #   "request.GET" is itself a dictionary.
+    completed = request.GET.get("completed")
+    order = request.GET.get("order")
+    all_todos = todo_App_1.objects.all()
+    if search != None:
+        all_todos = all_todos.filter(title__icontains=search)
+    if completed!=None:
+        value = COMPLETED_TO_BOOL.get(completed)
+        all_todos = all_todos.filter(completed=value)
+    if order != None:
+        value = ORDER_TO_STRING.get(order)
+        all_todos = all_todos.order_by(value)
+
     data = {
         "todos" : all_todos
     }
