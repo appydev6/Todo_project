@@ -1,4 +1,8 @@
 Todo_venv
 db.sqlite3
 *.pyc
+<<<<<<< HEAD
 .env
+=======
+.env
+>>>>>>> c9756da0b5ec060d52861be3535c89cf935b3052
